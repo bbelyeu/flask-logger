@@ -1,0 +1,24 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+Flask = "*"
+raven = "*"
+"raven[flask]" = "*"
+
+
+[dev-packages]
+
+coverage = "*"
+"flake8" = "*"
+isort = "*"
+pudb = "*"
+pycodestyle = "*"
+pylint = "*"
+python-coveralls = "*"
+wheel = "*"
