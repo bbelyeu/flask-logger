@@ -20,6 +20,18 @@ Import it and wrap app
     app = Flask(__name__)
     logger = Logger(app)
 
+## Configuration values
+
+You can set the default logging level on your app with the config value `LOG_LEVEL`.
+
+If you use Sentry with your project, you can setup [Sentry](https://sentry.io) logging by adding
+the `SENTRY_DSN` configuration value. Your DSN can be retrieved from your project in Sentry.
+
+You can modify the console output format with the configuration values `LOG_FORMAT_CONSOLE` and
+`LOG_FORMAT_TIME`. See the Python 3
+[logging Formatter docs](https://docs.python.org/3/library/logging.html#logging.Formatter)
+for more info.
+
 ## Development
 
 This project was written and tested with Python 3. Our builds currently support Python 3.3 to 3.6.
