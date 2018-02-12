@@ -1,5 +1,5 @@
 """Test the logger extension module."""
-# pylint: disable=protected-access
+# pylint: disable=protected-access,redefined-outer-name,unused-variable
 import logging
 import unittest
 from unittest.mock import MagicMock, patch
@@ -33,8 +33,8 @@ class TestLogger(unittest.TestCase):
         """Tear down tests."""
         self.ctx.pop()
         # reset any mock loggers at module level
-        global LOGGERS
-        LOGGERS = {}
+        # pylint: disable=invalid-name
+        LOGGERS = {}  # noqa
 
     def test_default_config(self):
         """Test the default configs."""
