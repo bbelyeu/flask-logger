@@ -5,7 +5,7 @@
 
 ## Requirements
 
-This project requires Python 3 (tested with 3.3-3.6) and Flask 0.12
+This project requires Python 3.6 and Flask 0.12
 
 ## Installation
 
@@ -37,7 +37,7 @@ for more info.
 
 ## Development
 
-This project was written and tested with Python 3. Our builds currently support Python 3.3 to 3.6.
+This project was written and tested with Python 3. Our builds currently only test Python 3.6.
 
 On a mac you can use the following commands to get up and running.
 ``` bash
