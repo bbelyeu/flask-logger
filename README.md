@@ -1,5 +1,8 @@
 # Flask-Logger
 
+[![Build Status](https://travis-ci.org/bbelyeu/flask-logger.svg?branch=master)](https://travis-ci.org/bbelyeu/flask-logger)
+[![Coverage Status](https://coveralls.io/repos/github/bbelyeu/flask-logger/badge.svg?branch=master)](https://coveralls.io/github/bbelyeu/flask-logger?branch=master)
+
 ## Requirements
 
 This project requires Python 3 (tested with 3.3-3.6) and Flask 0.12
