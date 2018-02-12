@@ -21,7 +21,7 @@ fi
 echo
 
 echo "> running pylint..."
-pylint flask_exceptions
+pylint flask_logger
 
 if [ $? != 0 ] && [ $? != 32 ]; then
     echo "Exit code: $?"

@@ -72,7 +72,7 @@ pipenv shell
 ### Running tests
 
 ``` bash
-./linters.sh && coverage run --source=flask_exceptions/ setup.py test
+./linters.sh && coverage run --source=flask_logger/ setup.py test
 ```
 
 ### Before committing any code
