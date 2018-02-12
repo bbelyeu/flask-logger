@@ -83,6 +83,7 @@ class TestLogger(unittest.TestCase):
         mock_handler.return_value = MagicMock()
         logger = Logger(self.app)
         mock_logger = MagicMock()
+        mock_logger.addHandler = MagicMock()
 
         logger._setup_sentry(mock_logger, TEST_DSN)
         assert mock_client.called
