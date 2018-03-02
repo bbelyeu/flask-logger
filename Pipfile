@@ -8,8 +8,7 @@ name = "pypi"
 [packages]
 
 Flask = "*"
-raven = "*"
-"raven[flask]" = "*"
+raven = {version = "*", extras = ["flask"]}
 
 
 [dev-packages]

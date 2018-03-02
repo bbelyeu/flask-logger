@@ -9,9 +9,13 @@ This project requires Python 3.6 and Flask 0.12
 
 ## Installation
 
-To install it, simply run
+To install it without Sentry support, simply run
 
     pip install flask-logger
+
+To install it with Sentry support, run
+
+    pip install flask-logger[Sentry]
 
 ## Usage
 

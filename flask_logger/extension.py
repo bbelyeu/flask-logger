@@ -2,8 +2,12 @@
 import logging
 import sys
 
-from raven import Client
-from raven.handlers.logging import SentryHandler
+try:
+    from raven import Client
+    from raven.handlers.logging import SentryHandler
+    RAVEN_IMPORTED = True
+except ImportError:
+    RAVEN_IMPORTED = False
 
 LOGGERS = {}
 
@@ -47,6 +51,9 @@ class Logger(object):
         return logger
 
     def _setup_sentry(self, logger, dsn):
+        if not RAVEN_IMPORTED:
+            raise Exception('If specifying SENTRY_DSN, raven must be installed'
+                            ' (pip install flask-logger[Sentry])')
         sentry_client = Client(dsn, auto_log_stacks=True)
         sentry_handler = SentryHandler(sentry_client)
         sentry_handler.setLevel(logging.ERROR)
