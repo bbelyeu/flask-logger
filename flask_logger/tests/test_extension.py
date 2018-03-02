@@ -1,5 +1,6 @@
 """Test the logger extension module."""
-# pylint: disable=protected-access,redefined-outer-name,unused-variable
+
+# pylint: disable=protected-access,redefined-outer-name,unused-variable,invalid-name
 import logging
 import unittest
 from unittest.mock import MagicMock, patch
@@ -7,7 +8,7 @@ from unittest.mock import MagicMock, patch
 from flask import Flask
 
 from flask_logger import Logger  # isort:skip
-from flask_logger.extension import LOGGERS  # isort:skip
+from flask_logger import extension  # isort:skip
 
 TEST_DSN = 'http://foo:bar@sentry.local/1?timeout=1'  # Got this from raven-python repo tests
 
@@ -33,8 +34,7 @@ class TestLogger(unittest.TestCase):
         """Tear down tests."""
         self.ctx.pop()
         # reset any mock loggers at module level
-        # pylint: disable=invalid-name
-        LOGGERS = {}  # noqa
+        extension.LOGGERS = {}  # noqa
 
     def test_default_config(self):
         """Test the default configs."""
@@ -67,7 +67,7 @@ class TestLogger(unittest.TestCase):
     def test_log(self):
         """Test reusing same logger to validate module caching."""
         logger = Logger(self.app)
-        LOGGERS[('test', None)] = MagicMock()
+        extension.LOGGERS[('test', None)] = MagicMock()
         self.assertIsInstance(logger._log('test', None), MagicMock)
 
     def test_log_no_logger(self):
@@ -97,7 +97,7 @@ class TestLogger(unittest.TestCase):
         """Test setup stdout."""
         logger = Logger(self.app)
         mock_logger = MagicMock()
-        LOGGERS[('test', None)] = mock_logger
+        extension.LOGGERS[('test', None)] = mock_logger
 
         mock_handler.return_value = MagicMock()
         mock_formatter.return_value = MagicMock()
@@ -112,7 +112,7 @@ class TestLogger(unittest.TestCase):
         """Test debug level logging."""
         logger = Logger(self.app)  # default level is error
         mock_logger = MagicMock()
-        LOGGERS[('foo', None)] = mock_logger
+        extension.LOGGERS[('foo', None)] = mock_logger
 
         logger.debug('foo', 'bar', extra={'foo': 'bar'})
         mock_logger.assert_not_called()
@@ -122,7 +122,7 @@ class TestLogger(unittest.TestCase):
         }
         logger2 = Logger(self.app, config)
         mock_logger2 = MagicMock()
-        LOGGERS[('foo2', None)] = mock_logger2
+        extension.LOGGERS[('foo2', None)] = mock_logger2
 
         mock_logger2.debug = MagicMock()
         logger2.debug('foo2', 'bar', extra={'foo': 'bar'})
@@ -132,7 +132,7 @@ class TestLogger(unittest.TestCase):
         """Test info level logging."""
         logger = Logger(self.app)  # default level is error
         mock_logger = MagicMock()
-        LOGGERS[('foo', None)] = mock_logger
+        extension.LOGGERS[('foo', None)] = mock_logger
 
         logger.info('foo', 'bar', extra={'foo': 'bar'})
         mock_logger.assert_not_called()
@@ -142,7 +142,7 @@ class TestLogger(unittest.TestCase):
         }
         logger2 = Logger(self.app, config)
         mock_logger2 = MagicMock()
-        LOGGERS[('foo2', None)] = mock_logger2
+        extension.LOGGERS[('foo2', None)] = mock_logger2
         mock_logger2.info = MagicMock()
 
         logger2.info('foo2', 'bar', extra={'foo': 'bar'})
@@ -152,7 +152,7 @@ class TestLogger(unittest.TestCase):
         """Test warning level logging."""
         logger = Logger(self.app)  # default level is error
         mock_logger = MagicMock()
-        LOGGERS[('foo', None)] = mock_logger
+        extension.LOGGERS[('foo', None)] = mock_logger
 
         logger.warning('foo', 'bar', extra={'foo': 'bar'})
         mock_logger.assert_not_called()
@@ -162,7 +162,7 @@ class TestLogger(unittest.TestCase):
         }
         logger2 = Logger(self.app, config)
         mock_logger2 = MagicMock()
-        LOGGERS[('foo2', None)] = mock_logger2
+        extension.LOGGERS[('foo2', None)] = mock_logger2
         mock_logger2.warning = MagicMock()
 
         logger2.warning('foo2', 'bar', extra={'foo': 'bar'})
@@ -172,7 +172,7 @@ class TestLogger(unittest.TestCase):
         """Test error level logging."""
         logger = Logger(self.app)  # default level is error
         mock_logger = MagicMock()
-        LOGGERS[('foo', None)] = mock_logger
+        extension.LOGGERS[('foo', None)] = mock_logger
         mock_logger.error = MagicMock()
 
         logger.error('foo', 'bar', extra={'foo': 'bar'})
@@ -182,7 +182,7 @@ class TestLogger(unittest.TestCase):
         """Test critical level logging."""
         logger = Logger(self.app)  # default level is error
         mock_logger = MagicMock()
-        LOGGERS[('foo', None)] = mock_logger
+        extension.LOGGERS[('foo', None)] = mock_logger
         mock_logger.critical = MagicMock()
 
         logger.critical('foo', 'bar', extra={'foo': 'bar'})
@@ -192,7 +192,7 @@ class TestLogger(unittest.TestCase):
         """Test critical level logging."""
         logger = Logger(self.app)  # default level is error
         mock_logger = MagicMock()
-        LOGGERS[('foo', None)] = mock_logger
+        extension.LOGGERS[('foo', None)] = mock_logger
         mock_logger.exception = MagicMock()
 
         logger.exception('foo', 'bar', extra={'foo': 'bar'})
