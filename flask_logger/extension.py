@@ -3,16 +3,18 @@ import logging
 import sys
 
 try:
-    from raven import Client
-    from raven.handlers.logging import SentryHandler
-    RAVEN_IMPORTED = True
+    from sentry_sdk import init as sentry_init
+    from sentry_sdk.hub import GLOBAL_HUB
+    from sentry_sdk.integrations.logging import LoggingIntegration
+    from sentry_sdk.integrations.flask import FlaskIntegration
+    SENTRY_IMPORTED = True
 except ImportError:
-    RAVEN_IMPORTED = False
+    SENTRY_IMPORTED = False
 
 LOGGERS = {}
 
 
-class Logger(object):
+class Logger():
     """Class to wrap the Flask app to provide awesome logging."""
 
     def __init__(self, app=None, config=None):
@@ -51,13 +53,13 @@ class Logger(object):
         return logger
 
     def _setup_sentry(self, logger, dsn):
-        if not RAVEN_IMPORTED:
-            raise Exception('If specifying SENTRY_DSN, raven must be installed'
+        if not SENTRY_IMPORTED:
+            raise Exception('If specifying SENTRY_DSN, sentry_sdk must be installed'
                             ' (pip install flask-logger[Sentry])')
-        sentry_client = Client(dsn, auto_log_stacks=True)
-        sentry_handler = SentryHandler(sentry_client)
-        sentry_handler.setLevel(logging.ERROR)
-        logger.addHandler(sentry_handler)
+
+        sentry_init(dsn=dsn, integrations=[FlaskIntegration()])
+        sentry_integration = GLOBAL_HUB.get_integration(LoggingIntegration)
+        logger.addHandler(sentry_integration._handler)  # pylint: disable=protected-access
 
     def _setup_stdout(self, logger):
         stdout_handler = logging.StreamHandler(sys.stdout)

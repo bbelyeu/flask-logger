@@ -53,14 +53,15 @@ brew upgrade python3
 ```
 to make sure you have an up to date version.
 
-This project uses [pipenv](https://docs.pipenv.org) for dependency management. Install pipenv
+This project uses [pip-tools](https://pypi.org/project/pip-tools/) for dependency management. Install pip-tools
 ``` bash
-pip3 install pipenv
+pip3 install pip-tools
 ```
 
 setup the project env
 ``` base
-pipenv install --three --dev
+python -m venv venv
+pip install -r requirements.txt -r requirements-dev.txt
 ```
 
 create a .env file using this sample
@@ -70,7 +71,7 @@ export PYTHONPATH=`pwd`
 
 now load virtualenv and any .env file
 ```bash
-pipenv shell
+source venv/bin/activate
 ```
 
 ### Running tests

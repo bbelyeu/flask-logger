@@ -4,7 +4,7 @@ import importlib
 import sys
 import unittest
 
-import raven
+import sentry_sdk
 from flask import Flask
 
 import flask_logger
@@ -18,13 +18,13 @@ def create_app():
     return app
 
 
-class TestRavenImport(unittest.TestCase):
-    """Test logger when raven isn't installed."""
+class TestSentrySdkImport(unittest.TestCase):
+    """Test logger when sentrysdk isn't installed."""
 
     def setUp(self):
         """Set up tests."""
-        # Force flask_logger to load without raven in the environment
-        sys.modules['raven'] = None
+        # Force flask_logger to load without sentry_sdk in the environment
+        sys.modules['sentry_sdk'] = None
         importlib.reload(flask_logger.extension)
         self.app = create_app()
         self.ctx = self.app.app_context()
@@ -36,17 +36,18 @@ class TestRavenImport(unittest.TestCase):
         # reset any mock loggers at module level
         # pylint: disable=invalid-name
         LOGGERS = {}  # noqa
-        sys.modules['raven'] = raven
+        sys.modules['sentry_sdk'] = sentry_sdk
         # Reload flask logger to restore sys.modules to correct state
         importlib.reload(flask_logger.extension)
 
-    def test_log_without_raven(self):
-        """Test establishing logger when raven isn't installed."""
+    def test_log_without_sentrysdk(self):
+        """Test establishing logger when sentry_sdk isn't installed."""
         logger = flask_logger.Logger()
         logger.init_app(self.app)
         with self.assertRaises(Exception) as context:
-            logger.error('no_raven_logger', 'this will raise an exception', dsn=TEST_DSN)
+            logger.error('no_sentry_sdk_logger', 'this will raise an exception', dsn=TEST_DSN)
         self.assertEqual(
             str(context.exception),
-            'If specifying SENTRY_DSN, raven must be installed (pip install flask-logger[Sentry])'
+            'If specifying SENTRY_DSN, sentry_sdk must be installed '
+            '(pip install flask-logger[Sentry])'
         )
