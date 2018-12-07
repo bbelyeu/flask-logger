@@ -1,0 +1,9 @@
+coverage
+flake8
+isort
+pudb
+pycodestyle
+pylint
+pytest
+python-coveralls
+wheel

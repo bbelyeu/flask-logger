@@ -3,9 +3,9 @@ from setuptools import setup
 
 setup(
     name='Flask-Logger',
-    version='1.0.1',
+    version='1.0.2',
     url='https://github.com/bbelyeu/flask-logger',
-    download_url='https://github.com/bbelyeu/flask-logger/archive/1.0.1.zip',
+    download_url='https://github.com/bbelyeu/flask-logger/archive/1.0.2.zip',
     license='MIT',
     author='Brad Belyeu',
     author_email='bradleylamar@gmail.com',
@@ -19,7 +19,7 @@ setup(
         'Flask'
     ],
     extras_require={
-        'Sentry': ['raven']
+        'Sentry': ['sentry-sdk']
     },
     classifiers=[
         'Environment :: Web Environment',

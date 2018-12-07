@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "> running pycodestyle..."
-pycodestyle --max-line-length=99 --exclude='.eggs,build,dist' .
+pycodestyle --max-line-length=99 --exclude='.eggs,build,dist,venv/' .
 if [ $? != 0 ]
 then
     exit 1
@@ -11,7 +11,7 @@ fi
 echo
 
 echo "> running flake8..."
-flake8 --exclude='.eggs,build,dist' --max-line-length=99
+flake8 --exclude='.eggs,build,dist,venv/*' --max-line-length=99
 if [ $? != 0 ]
 then
     exit 1
@@ -21,7 +21,7 @@ fi
 echo
 
 echo "> running pylint..."
-pylint flask_logger
+pylint --ignore=venv/ flask_logger
 
 if [ $? != 0 ] && [ $? != 32 ]; then
     echo "Exit code: $?"
@@ -32,7 +32,7 @@ fi
 echo
 
 echo "> running isort..."
-isort -c --diff
+isort -c --diff --skip venv/
 if [ $? != 0 ]; then
     exit 1
 else

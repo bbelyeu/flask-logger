@@ -27,12 +27,9 @@ class TestLogger(unittest.TestCase):
     def setUp(self):
         """Set up tests."""
         self.app = create_app()
-        self.ctx = self.app.app_context()
-        self.ctx.push()
 
     def tearDown(self):
         """Tear down tests."""
-        self.ctx.pop()
         # reset any mock loggers at module level
         extension.LOGGERS = {}  # noqa
 
@@ -76,8 +73,8 @@ class TestLogger(unittest.TestCase):
         self.assertIsInstance(logger._log('no_mock', None), logging.Logger)
         self.assertIsInstance(logger._log('no_mock', TEST_DSN), logging.Logger)
 
-    @patch('flask_logger.extension.Client')
-    @patch('flask_logger.extension.SentryHandler')
+    @patch('flask_logger.extension.GLOBAL_HUB.get_integration')
+    @patch('flask_logger.extension.sentry_init')
     def test_setup_sentry(self, mock_handler, mock_client):
         """Test setup sentry."""
         mock_handler.return_value = MagicMock()
@@ -88,7 +85,6 @@ class TestLogger(unittest.TestCase):
         logger._setup_sentry(mock_logger, TEST_DSN)
         assert mock_client.called
         assert mock_handler.called
-        mock_handler.return_value.setLevel.assert_called_once_with(logging.ERROR)
         mock_logger.addHandler.assert_called_once()
 
     @patch('logging.Formatter')
