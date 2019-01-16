@@ -41,4 +41,4 @@ fi
 echo
 
 echo ">Running detect-secrets..."
-git diff --cached --stat=500 | grep '+' | awk {'print $1'} | awk 'NR>1 {print l} {l=$0}' | grep '.py$' | xargs detect-secrets-hook
+git diff --cached --stat=500 | grep '+' | awk {'print $1'} | awk 'NR>1 {print l} {l=$0}' | xargs detect-secrets-hook
