@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='Flask-Logger',
-    version='1.0.2',
+    version='1.0.3',
     url='https://github.com/bbelyeu/flask-logger',
     download_url='https://github.com/bbelyeu/flask-logger/archive/1.0.2.zip',
     license='MIT',
