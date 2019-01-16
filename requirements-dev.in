@@ -1,4 +1,5 @@
 coverage
+detect-secrets
 flake8
 isort
 pudb
