@@ -4,8 +4,6 @@
 #
 #    pip-compile --output-file requirements-dev.txt requirements-dev.in
 #
---index-url https://yvapi:7TLMoxHM1ueN@pypi.thewardro.be/simple
---trusted-host pypi.thewardro.be
 
 astroid==2.1.0            # via pylint
 atomicwrites==1.2.1       # via pytest
@@ -29,7 +27,7 @@ pygments==2.3.1           # via pudb
 pylint==2.2.2
 pytest==4.1.1
 python-coveralls==2.9.1
-pyyaml==3.13              # via detect-secrets, python-coveralls
+pyyaml==4.2b4
 requests==2.21.0          # via python-coveralls
 six==1.12.0               # via astroid, more-itertools, pytest, python-coveralls
 typed-ast==1.2.0          # via astroid
