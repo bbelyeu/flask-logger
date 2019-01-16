@@ -57,7 +57,8 @@ class Logger():
             raise Exception('If specifying SENTRY_DSN, sentry_sdk must be installed'
                             ' (pip install flask-logger[Sentry])')
 
-        sentry_init(dsn=dsn, integrations=[FlaskIntegration()])
+        env = self.config.get('environment') or self.config.get('env')
+        sentry_init(dsn=dsn, integrations=[FlaskIntegration()], environment=env)
         sentry_integration = GLOBAL_HUB.get_integration(LoggingIntegration)
         logger.addHandler(sentry_integration._handler)  # pylint: disable=protected-access
 

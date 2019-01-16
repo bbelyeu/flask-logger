@@ -34,6 +34,9 @@ You can set the default logging level on your app with the config value `LOG_LEV
 If you use Sentry with your project, you can setup [Sentry](https://sentry.io) logging by adding
 the `SENTRY_DSN` configuration value. Your DSN can be retrieved from your project in Sentry.
 
+If you do use Sentry, you may also want to specify an `ENV` (dev, staging, qa, prod, etc) in your
+app's config so that the correct environment information can be sent to Sentry.
+
 You can modify the console output format with the configuration values `LOG_FORMAT_CONSOLE` and
 `LOG_FORMAT_TIME`. See the Python 3
 [logging Formatter docs](https://docs.python.org/3/library/logging.html#logging.Formatter)
