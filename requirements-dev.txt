@@ -34,4 +34,4 @@ typed-ast==1.2.0          # via astroid
 urllib3==1.24.1           # via requests
 urwid==2.0.1              # via pudb
 wheel==0.32.3
-wrapt==1.11.0             # via astroid
+wrapt==1.11.1             # via astroid

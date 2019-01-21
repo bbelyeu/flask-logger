@@ -3,6 +3,7 @@ import logging
 import sys
 
 try:
+    from sentry_sdk import _initial_client
     from sentry_sdk import init as sentry_init
     from sentry_sdk.hub import GLOBAL_HUB
     from sentry_sdk.integrations.logging import LoggingIntegration
@@ -57,8 +58,10 @@ class Logger():
             raise Exception('If specifying SENTRY_DSN, sentry_sdk must be installed'
                             ' (pip install flask-logger[Sentry])')
 
-        env = self.config.get('environment') or self.config.get('env')
-        sentry_init(dsn=dsn, integrations=[FlaskIntegration()], environment=env)
+        if not _initial_client:
+            env = self.config.get('environment') or self.config.get('env')
+            sentry_init(dsn=dsn, integrations=[FlaskIntegration()], environment=env)
+
         sentry_integration = GLOBAL_HUB.get_integration(LoggingIntegration)
         logger.addHandler(sentry_integration._handler)  # pylint: disable=protected-access
 
