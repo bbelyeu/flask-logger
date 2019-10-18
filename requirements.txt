@@ -15,5 +15,5 @@ itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
 markupsafe==1.1.0         # via jinja2
 sentry-sdk[flask]==0.6.6
-urllib3==1.24.1           # via sentry-sdk
+urllib3==1.24.2           # via sentry-sdk
 werkzeug==0.14.1          # via flask
