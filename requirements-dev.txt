@@ -80,7 +80,7 @@ urwid==2.1.0
     # via pudb
 wcwidth==0.1.9
     # via pytest
-wheel==0.34.2
+wheel==0.38.1
     # via -r requirements-dev.in
 wrapt==1.12.1
     # via astroid
